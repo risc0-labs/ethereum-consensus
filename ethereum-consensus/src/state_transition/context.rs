@@ -1,8 +1,9 @@
+#[cfg(feature = "c-kzg")]
+use crate::crypto::{kzg_settings_from_json, KzgSettings};
 use crate::{
     altair, bellatrix, capella,
     clock::{self, Clock, SystemTimeProvider},
     configs::{self, Config},
-    crypto::{kzg_settings_from_json, KzgSettings},
     deneb::{self, presets::TRUSTED_SETUP_JSON},
     electra,
     execution_engine::ExecutionEngine,
@@ -146,6 +147,7 @@ pub struct Context {
     #[cfg(not(feature = "spec-tests"))]
     execution_engine: bool,
 
+    #[cfg(feature = "c-kzg")]
     pub kzg_settings: Arc<KzgSettings>,
 }
 
@@ -203,6 +205,7 @@ impl Context {
         electra_preset: &electra::Preset,
         config: &Config,
     ) -> Self {
+        #[cfg(feature = "c-kzg")]
         let kzg_settings = kzg_settings_from_json(TRUSTED_SETUP_JSON).unwrap();
 
         Self {
@@ -324,6 +327,7 @@ impl Context {
             deposit_network_id: config.deposit_network_id,
             deposit_contract_address: config.deposit_contract_address.clone(),
             execution_engine: DEFAULT_EXECUTION_ENGINE_VALIDITY,
+            #[cfg(feature = "c-kzg")]
             kzg_settings: Arc::new(kzg_settings),
         }
     }

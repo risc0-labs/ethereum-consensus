@@ -6,4 +6,6 @@ pub use bls::{
     fast_aggregate_verify, hash, verify_signature, Error as BlsError, PublicKey, SecretKey,
     Signature,
 };
-pub use kzg::{kzg_settings_from_json, Error as KzgError, KzgCommitment, KzgProof, KzgSettings};
+#[cfg(feature = "c-kzg")]
+pub use kzg::{kzg_settings_from_json, KzgSettings};
+pub use kzg::{Error as KzgError, KzgCommitment, KzgProof};

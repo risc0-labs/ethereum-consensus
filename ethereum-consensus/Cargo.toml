@@ -6,7 +6,7 @@ license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
-default = ["serde", "async"]
+default = ["serde", "async", "c-kzg"]
 serde = ["hex", "serde_json", "serde_yaml"]
 async = ["tokio", "tokio-stream"]
 optimized = ["shuffling"]
@@ -32,6 +32,7 @@ ec = [
     "unicode-normalization",
     "bitvec",
 ]
+c-kzg = ["dep:c-kzg"]
 
 [dependencies]
 ssz_rs = { workspace = true }
@@ -43,7 +44,7 @@ integer-sqrt = { workspace = true }
 enr = { workspace = true }
 multihash = { workspace = true }
 multiaddr = { workspace = true }
-c-kzg = { workspace = true }
+c-kzg = { workspace = true, optional = true }
 serde = { workspace = true }
 serde_json = { workspace = true, optional = true }
 serde_yaml = { workspace = true, optional = true }
